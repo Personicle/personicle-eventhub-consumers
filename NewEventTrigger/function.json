@@ -1,0 +1,14 @@
+{
+  "scriptFile": "__init__.py",
+  "bindings": [
+    {
+      "type": "eventHubTrigger",
+      "name": "event",
+      "direction": "in",
+      "eventHubName": "testhub-new",
+      "connection": "personicleeventhubdev_test_analytics_job_namespace_policy_EVENTHUB",
+      "cardinality": "many",
+      "consumerGroup": "event-trigger-consumer"
+    }
+  ]
+}
