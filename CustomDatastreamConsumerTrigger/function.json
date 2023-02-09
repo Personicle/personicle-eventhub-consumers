@@ -5,10 +5,10 @@
       "type": "eventHubTrigger",
       "name": "event",
       "direction": "in",
-      "eventHubName": "testhub-new",
+      "eventHubName": "datastream-hub",
       "connection": "personicleeventhubdev_test_analytics_job_namespace_policy_EVENTHUB",
       "cardinality": "many",
-      "consumerGroup": "test-event-trigger-consumer"
+      "consumerGroup": "test-personicle-datastream-trigger"
     }
   ]
 }

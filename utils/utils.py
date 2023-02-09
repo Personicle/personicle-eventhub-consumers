@@ -1,6 +1,6 @@
 from asyncio.log import logger
 import requests
-from config import SCHEMA_API
+from .config import SCHEMA_API
 import logging
 import json
 

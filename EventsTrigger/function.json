@@ -3,7 +3,7 @@
   "bindings": [
     {
       "type": "eventHubTrigger",
-      "name": "event",
+      "name": "events",
       "direction": "in",
       "eventHubName": "testhub-new",
       "connection": "personicleeventhubdev_test_analytics_job_namespace_policy_EVENTHUB",
