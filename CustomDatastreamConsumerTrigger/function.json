@@ -8,7 +8,7 @@
       "eventHubName": "datastream-hub",
       "connection": "personicleeventhubdev_test_analytics_job_namespace_policy_EVENTHUB",
       "cardinality": "many",
-      "consumerGroup": "test-personicle-datastream-trigger"
+      "consumerGroup": "personicle-datastreams-consumer-group"
     }
   ]
 }

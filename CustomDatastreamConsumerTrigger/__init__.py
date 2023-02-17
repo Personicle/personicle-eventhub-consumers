@@ -2,7 +2,7 @@ import logging
 import azure.functions as func
 from utils.utils import match_data_dictionary
 import requests
-from utils.config import SCHEMA_API 
+from utils.config import SCHEMA_API,METADATA_API
 import json
 import logging
 import copy
@@ -23,8 +23,8 @@ def main(event: func.EventHubEvent):
    
     for e in event:
       try:
-          # logging.info('Python EventHub trigger processed a datastream: %s',
-          #        e.get_body().decode('utf-8'))
+          logging.info('Python EventHub trigger processed a datastream: %s',
+                 e.get_body().decode('utf-8'))
           logging.info(e.metadata)
           current_event = json.loads(e.get_body().decode('utf-8'))
           stream_type = current_event['streamName']
@@ -35,7 +35,14 @@ def main(event: func.EventHubEvent):
           data_dict_params = {"data_type": "datastream"}
           data_dict_response = requests.post(SCHEMA_API['VALIDATE_DATA_PACKET'], 
           json=current_event, params=data_dict_params)
-
+          params = {"user_id": current_event['individual_id'],"request_origin": f"{METADATA_API['REQUEST_ORIGIN']}","data_type": stream_type }
+          headers = {
+            "Authorization": f"{METADATA_API['TOKEN']}"
+          }
+          # 
+          #
+          # response = requests.get("https://api.personicle.org/data/read/metadata/datastream",headers=headers,params=params)
+          # logging.info(response)
           if not json.loads(data_dict_response.text).get("schema_check", False):
               logger.error(f"Invalid event: {current_event}")
               return
@@ -88,9 +95,9 @@ def main(event: func.EventHubEvent):
 
           if data_stream_exists:
               query = update(model_class_user_datastreams.__table__).where((model_class_user_datastreams.individual_id==individual_id) & 
-              (model_class_user_datastreams.datastream == stream_type) & (model_class_user_datastreams.source == source)).values(last_updated = max_timestamp)
+              (model_class_user_datastreams.datastream == stream_type) & (model_class_user_datastreams.source == source)).values(last_updated = max_timestamp, table_name=table_name)
           else: 
-              query = insert(model_class_user_datastreams.__table__).values(individual_id=individual_id,datastream=stream_type,last_updated=max_timestamp,source=source)
+              query = insert(model_class_user_datastreams.__table__).values(individual_id=individual_id,datastream=stream_type,last_updated=max_timestamp,source=source, table_name=table_name)
 
           session.execute(query)
           session.commit()

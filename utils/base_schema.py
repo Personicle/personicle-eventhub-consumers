@@ -68,6 +68,7 @@ base_schema = {
     },
      "user_events_schema": {
         "user_id": Column(String),
+        "unique_event_id": Column(String, primary_key=True),
         "start_time": Column(TIMESTAMP),
         "end_time": Column(TIMESTAMP),
         "event_name": Column(String),
@@ -78,7 +79,8 @@ base_schema = {
         "individual_id": Column(String, primary_key=True),
         "source": Column(String, primary_key=True),
         "datastream": Column(String, primary_key=True),
-        "last_updated": Column(TIMESTAMP)
+        "last_updated": Column(TIMESTAMP),
+        "table_name": Column(String)
     },
     "user_info.avsc": {
         "user_id": Column(String, primary_key=True),
