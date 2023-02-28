@@ -35,10 +35,10 @@ def main(event: func.EventHubEvent):
           data_dict_params = {"data_type": "datastream"}
           data_dict_response = requests.post(SCHEMA_API['VALIDATE_DATA_PACKET'], 
           json=current_event, params=data_dict_params)
-          params = {"user_id": current_event['individual_id'],"request_origin": f"{METADATA_API['REQUEST_ORIGIN']}","data_type": stream_type }
-          headers = {
-            "Authorization": f"{METADATA_API['TOKEN']}"
-          }
+          # params = {"user_id": current_event['individual_id'],"request_origin": f"{METADATA_API['REQUEST_ORIGIN']}","data_type": stream_type }
+          # headers = {
+          #   "Authorization": f"{METADATA_API['TOKEN']}"
+          # }
           # 
           #
           # response = requests.get("https://api.personicle.org/data/read/metadata/datastream",headers=headers,params=params)
