@@ -36,6 +36,7 @@ def main(events: List[func.EventHubEvent]):
             check_null_values(current_event,keys)
 
             event_name = current_event['event_name']
+            event_type = current_event['event_type']
             source = current_event['source']
             start_time=current_event['start_time']
             end_time=current_event['end_time']
@@ -47,7 +48,7 @@ def main(events: List[func.EventHubEvent]):
             model_class = generate_table_class(table_name, copy.deepcopy(
             base_schema["user_events_schema"]))
            
-            query = insert(model_class.__table__).values(user_id=individual_id,start_time=start_time,end_time=end_time,event_name=event_name,parameters=parameters,source=source)
+            query = insert(model_class.__table__).values(user_id=individual_id,start_time=start_time,end_time=end_time,event_name=event_name,event_type=event_type,parameters=parameters,source=source)
             # statement = insert(model_class).values(current_event)
             session.execute(query)
             session.commit()

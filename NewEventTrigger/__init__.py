@@ -31,7 +31,8 @@ def main(event: func.EventHubEvent):
         # dict_keys(['individual_id', 'start_time', 'end_time', 'event_name', 'source', 'parameters'])
         event_metadata = {
             "individual_id": event_body['individual_id'],
-            "event_type": event_body['event_name'],
+            "event_type": event_body['event_type'],
+            "event_name": event_body['event_name'],
             "source": event_body['source'],
             "last_updated": datetime.utcnow(),
             "last_observed": event_body['end_time'],
@@ -46,7 +47,9 @@ def main(event: func.EventHubEvent):
 
             individual_id = event_body['individual_id']
             source = event_body['source']
-            stream_type = event_body['event_name']
+            stream_type = event_body['event_type']
+            stream_name = event_body['event_name']
+
 
             # generate table class method also creates the table if it does not exist
             model_class = generate_table_class(table_name, copy.deepcopy(

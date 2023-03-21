@@ -60,6 +60,7 @@ base_schema = {
     "metadata_schema": {
         "individual_id": Column(String, primary_key=True),
         "event_type": Column(String, primary_key=True),
+        "event_name": Column(String),
         "source": Column(String, primary_key=True),
         "last_updated": Column(TIMESTAMP, default=datetime.utcnow()),
         "last_observed": Column(TIMESTAMP),
@@ -72,6 +73,7 @@ base_schema = {
         "start_time": Column(TIMESTAMP),
         "end_time": Column(TIMESTAMP),
         "event_name": Column(String),
+        "event_type": Column(String),
         "source": Column(String),
         "parameters": Column(JSON),
     },
