@@ -33,9 +33,11 @@ def main(events: List[func.EventHubEvent]):
             keys=["individual_id","start_time","end_time","event_name","source", "parameters"]
 
             check_json_keys(current_event,keys)
-            check_null_values(current_event,keys)
-
-            event_name = current_event['event_name']
+            # check_null_values(current_event,keys)
+            if current_event['event_name'] is None or current_event['event_name'] == '':
+                event_name = current_event['event_type'].split(".")[-1]
+            else:
+                event_name = current_event['event_name']
             event_type = current_event['event_type']
             source = current_event['source']
             start_time=current_event['start_time']
