@@ -107,5 +107,13 @@ base_schema = {
         "value": Column(JSON),
         "unit": Column(String),
         "confidence": Column(String, default=None)
+    },
+    "location_datastream_schema.avsc": {
+        "individual_id": Column(String, primary_key=True),
+        "timestamp": Column(TIMESTAMP, primary_key=True),
+        "source": Column(String, primary_key=True),
+        "value": Column(JSON),
+        "unit": Column(String),
+        "confidence": Column(String, default=None)
     }
 }
