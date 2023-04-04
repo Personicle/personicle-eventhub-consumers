@@ -53,7 +53,10 @@ def main(event: func.EventHubEvent):
 
           if source == "Personicle":
               logger.info("Personicle source")
-          unit = current_event['unit']
+          if 'unit' in current_event:
+             unit = current_event['unit']
+          else:
+             unit = ''
           model_class = generate_table_class(table_name, copy.deepcopy(base_schema[stream_information['base_schema']]))
           model_class_user_datastreams = generate_table_class("user_datastreams", copy.deepcopy(base_schema['user_datastreams_store.avsc']))
 
