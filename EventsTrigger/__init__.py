@@ -49,9 +49,14 @@ def main(events: List[func.EventHubEvent]):
 
             model_class = generate_table_class(table_name, copy.deepcopy(
             base_schema["user_events_schema"]))
-           
-            query = insert(model_class.__table__).values(user_id=individual_id,start_time=start_time,end_time=end_time,event_name=event_name,event_type=event_type,parameters=parameters,source=source)
+            try:
+                query = insert(model_class.__table__).values(user_id=individual_id,start_time=start_time,end_time=end_time,event_name=event_name,event_type=event_type,parameters=parameters,source=source)
             # statement = insert(model_class).values(current_event)
+            except Exception as e:
+                logger.error(e)
+                session.rollback()
+                session.close()
+         
             session.execute(query)
             session.commit()
         except Exception as e:
